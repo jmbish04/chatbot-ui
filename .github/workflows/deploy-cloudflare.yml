@@ -36,3 +36,10 @@ jobs:
           directory: .vercel/output/static # Default output dir for next-on-pages build
           # Or use wrangler directly:
           # command: pages deploy .vercel/output/static --project-name=chatbot-ui-cf --branch=${{ github.ref_name }} --commit-dirty=true
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          script: worker/index.js
